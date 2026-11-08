@@ -27,6 +27,7 @@ class Exercise:
         )
 
 
+
 class StrengthExercise(Exercise):
     """Represent a strength exercise."""
 
@@ -41,8 +42,8 @@ class StrengthExercise(Exercise):
             f"{self.name}: {self.sets} sets of "
             f"{self.repetitions} repetitions at "
             f"{self.weight} lbs ({self.muscle_group})"
+        )
 
-    
     def get_recommended_weight(self, completed_target, increment=5):
         """Recommend a gradual weight increase after successful training."""
         if self.weight < 0:
@@ -55,8 +56,6 @@ class StrengthExercise(Exercise):
             return self.weight + increment
 
         return self.weight
-
-        )
 
 
 class CardioExercise(Exercise):
