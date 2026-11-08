@@ -8,6 +8,7 @@ Date: November 7, 2026
 """
 
 from workout_generator import generate_workout
+from exercise import StrengthExercise
 from progress_tracker import ProgressTracker
 from file_manager import save_data, load_data
 
@@ -24,7 +25,8 @@ def display_menu():
     print("2. Record a completed workout")
     print("3. View workout progress")
     print("4. View saved workout history")
-    print("5. Exit")
+    print("5. Update exercise weight")
+    print("6. Exit")
 
 
 def generate_and_save_workout():
@@ -144,6 +146,44 @@ def view_saved_workouts():
             print(f"- {exercise['details']}")
 
 
+def update_exercise_weight():
+    """Recommend a weight adjustment after a strength exercise."""
+    print("\n=== PROGRESSIVE WEIGHT UPDATE ===")
+
+    exercise_name = input("Enter the exercise name: ")
+
+    try:
+        current_weight = float(input("Enter the current weight in lbs: "))
+
+        exercise = StrengthExercise(
+            exercise_name,
+            "Strength",
+            3,
+            10,
+            current_weight
+        )
+
+        completed = input(
+            "Did you successfully complete your target? (yes/no): "
+        ).lower()
+
+        if completed not in ["yes", "no"]:
+            print("Please enter yes or no.")
+            return
+
+        recommended_weight = exercise.get_recommended_weight(
+            completed == "yes"
+        )
+
+        print(f"\nExercise: {exercise_name}")
+        print(f"Current weight: {current_weight} lbs")
+        print(f"Recommended next weight: {recommended_weight} lbs")
+
+    except ValueError as error:
+        print(f"Invalid entry: {error}")
+
+
+
 def main():
     """Run the main workout application."""
     tracker = ProgressTracker()
@@ -171,6 +211,9 @@ def main():
             view_saved_workouts()
 
         elif choice == "5":
+            update_exercise_weight()
+
+        elif choice == "6":
             print("Thank you for using the workout generator!")
             break
 
