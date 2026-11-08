@@ -41,6 +41,21 @@ class StrengthExercise(Exercise):
             f"{self.name}: {self.sets} sets of "
             f"{self.repetitions} repetitions at "
             f"{self.weight} lbs ({self.muscle_group})"
+
+    
+    def get_recommended_weight(self, completed_target, increment=5):
+        """Recommend a gradual weight increase after successful training."""
+        if self.weight < 0:
+            raise ValueError("Weight cannot be negative.")
+
+        if increment <= 0:
+            raise ValueError("Weight increment must be positive.")
+
+        if completed_target:
+            return self.weight + increment
+
+        return self.weight
+
         )
 
 
